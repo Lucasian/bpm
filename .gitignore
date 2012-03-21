@@ -1,0 +1,7 @@
+#SBT folders
+target
+
+#Eclipse folders
+.project
+.settings
+.classpath
