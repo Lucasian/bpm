@@ -1,10 +1,12 @@
 package com.lucasian.bpm.bos
+
 import java.io.File
-import org.ow2.bonita.identity.auth.UserOwner
 import org.ow2.bonita.identity.auth.DomainOwner
 import org.ow2.bonita.util.BonitaConstants
+import com.lucasian.bpm.ProcessEngineFactory
+import com.other.context.TestUserFinder
 
-trait BonitaEnvironment {
+trait BonitaTestEnvironment {
 
   def createFS(bonitaHome: String) = {
     var bonitaHomeFile = new File(bonitaHome)
@@ -20,8 +22,9 @@ trait BonitaEnvironment {
 
     createFS(bonitaHome)
 
-    //UserOwner.setUser("admin")
     DomainOwner.setDomain(BonitaConstants.DEFAULT_DOMAIN)
+    
+    ProcessEngineFactory.registerUserFinder(new TestUserFinder())
 
     try {
       proc

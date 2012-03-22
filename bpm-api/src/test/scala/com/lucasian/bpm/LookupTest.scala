@@ -5,7 +5,7 @@ class EngineTests extends Specification {
 
   "The engine factory" should {
     "get an engine" in {
-      ProcessEngineFactory.getProcessEngine() must not be null 
+      ProcessEngineFactory.getProcessEngine() must not be null
     }
   }
   

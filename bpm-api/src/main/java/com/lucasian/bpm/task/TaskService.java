@@ -21,12 +21,17 @@ public interface TaskService {
 	
 	void start(String taskId, Map<String, Object> variables);
 
-	void complete(String taskId);
+	void finish(String taskId);
 	
-	void complete(String taskId, Map<String, Object> variables);
+	void finish(String taskId, Map<String, Object> variables);
 
 	/*
-	 * Executing SHOULD be the same as starting and then completing
+	 * Executing SHOULD be the same as starting and then finishing
+	 */
+	void execute(String taskId);
+	
+	/*
+	 * Executing SHOULD be the same as starting and then finishing
 	 */
 	void execute(String taskId, Map<String, Object> variables);
 

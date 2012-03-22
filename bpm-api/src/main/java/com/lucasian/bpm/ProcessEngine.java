@@ -7,9 +7,9 @@ import com.lucasian.bpm.task.TaskService;
 public interface ProcessEngine {
 
 	ManagementService getManagementService();
-	
+
 	RuntimeService getRuntimeService();
-	
+
 	TaskService getTaskService();
-	
+
 }

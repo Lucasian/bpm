@@ -1,4 +1,5 @@
 package com.lucasian.bpm
+
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 object ProcessEngineFactory {
@@ -7,13 +8,23 @@ object ProcessEngineFactory {
     this.getClass().getPackage().getName()
   private val springContext =
     new AnnotationConfigApplicationContext(packageName)
+  private var userFinder: ProcessUserFinder = _
+
   private val processEngine =
     springContext.getBean(classOf[ProcessEngine])
-    
-  def getProcessEngine() =
+
+  def getProcessEngine(): ProcessEngine =
     processEngine
-    
-  def getProcessUser() =
-    springContext.getBean(classOf[ProcessUser])
+
+  def registerUserFinder(userFinder: ProcessUserFinder): Unit =
+    this.userFinder = userFinder
+
+  def findCurrentUser(): String = {
+    if (userFinder == null) {
+      null
+    } else {
+      userFinder.findCurrentUser()
+    }
+  }
 
 }
