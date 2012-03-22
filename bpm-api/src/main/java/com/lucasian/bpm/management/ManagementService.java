@@ -1,4 +1,4 @@
-package com.lucasian.bpm;
+package com.lucasian.bpm.management;
 
 public interface ManagementService {
 

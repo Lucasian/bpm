@@ -1,6 +1,6 @@
-package com.lucasian.bpm.process;
+package com.lucasian.bpm;
 
-import com.lucasian.bpm.ManagementService;
+import com.lucasian.bpm.management.ManagementService;
 import com.lucasian.bpm.runtime.RuntimeService;
 import com.lucasian.bpm.task.TaskService;
 

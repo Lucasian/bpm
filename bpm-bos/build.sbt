@@ -4,7 +4,10 @@ version := "0.0.0-SNAPSHOT"
 
 organization := "com.lucasian"
 
-libraryDependencies += "org.ow2.bonita" % "bonita-server" % "5.6.2"
+libraryDependencies ++= Seq(
+	"org.ow2.bonita" %  "bonita-server" % "5.6.2" withSources() withJavadoc(),
+	"org.specs2"     %% "specs2"        % "1.8.2" % "test"
+)
 
 resolvers += "JBoss Thirdparty Releases" at "https://repository.jboss.org/nexus/content/repositories/thirdparty-releases"
 
