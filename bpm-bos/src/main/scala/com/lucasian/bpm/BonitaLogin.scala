@@ -9,7 +9,12 @@ trait BonitaLogin {
     UserOwner.setUser(ProcessEngineFactory.findCurrentUser())
     DomainOwner.setDomain(BonitaConstants.DEFAULT_DOMAIN)
 
-    proc
+    try {
+      proc
+    } finally {
+      //Clear the user, only this process should be able to use it
+      UserOwner.setUser(null)
+    }
   }
 
 }

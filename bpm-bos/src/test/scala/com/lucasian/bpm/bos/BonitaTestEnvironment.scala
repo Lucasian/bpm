@@ -21,8 +21,6 @@ trait BonitaTestEnvironment {
     System.setProperty("BONITA_HOME", bonitaHome)
 
     createFS(bonitaHome)
-
-    DomainOwner.setDomain(BonitaConstants.DEFAULT_DOMAIN)
     
     ProcessEngineFactory.registerUserFinder(new TestUserFinder())
 
