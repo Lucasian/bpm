@@ -3,11 +3,15 @@ import org.ow2.bonita.identity.auth.DomainOwner
 import org.ow2.bonita.identity.auth.UserOwner
 import org.ow2.bonita.util.BonitaConstants
 
-trait BonitaLogin {
+trait BonitaAuth {
 
-  def bonitaLogin[T](proc: => T): T = {
-    UserOwner.setUser(ProcessEngineFactory.findCurrentUser())
+  private def setupDomain(): Unit = {
     DomainOwner.setDomain(BonitaConstants.DEFAULT_DOMAIN)
+  }
+  
+  def bonitaLogin[T](user: String)(proc: => T):T = {
+    UserOwner.setUser(user)
+    setupDomain()
 
     try {
       proc
@@ -15,6 +19,15 @@ trait BonitaLogin {
       //Clear the user, only this process should be able to use it
       UserOwner.setUser(null)
     }
+  }
+
+  def bonitaLogin[T](proc: => T): T = {
+    bonitaLogin(ProcessEngineFactory.findCurrentUser())(proc)
+  }
+
+  def bonitaContext[T](proc: => T): T = {
+    setupDomain()
+    proc
   }
 
 }

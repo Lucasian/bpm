@@ -1,11 +1,11 @@
 name := "BPM BOS"
 
-version := "0.0.0-SNAPSHOT"
+version := "0.0.1-SNAPSHOT"
 
 organization := "com.lucasian"
 
 libraryDependencies ++= Seq(
-	"org.ow2.bonita" %  "bonita-server" % "5.6.2" withSources() withJavadoc(),
+	"org.ow2.bonita" %  "bonita-server" % "5.3.1" withSources() withJavadoc(),
 	"org.specs2"     %% "specs2"        % "1.8.2" % "test"
 )
 

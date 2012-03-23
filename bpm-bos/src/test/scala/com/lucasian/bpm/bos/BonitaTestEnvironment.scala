@@ -8,28 +8,17 @@ import com.other.context.TestUserFinder
 
 trait BonitaTestEnvironment {
 
-  def createFS(bonitaHome: String) = {
-    var bonitaHomeFile = new File(bonitaHome)
-    if (!bonitaHomeFile.exists()) {
-      bonitaHomeFile.mkdirs()
-    }
-  }
+  val environmentPath =
+    System.getProperty("user.dir") + File.separator +
+      "bonita" + File.separator +
+      "bonita-environment.xml"
 
   def bonitaTestEnv[T](proc: => T): T = {
 
-    val bonitaHome = System.getProperty("user.dir") + File.separator + "bonita"
-    System.setProperty("BONITA_HOME", bonitaHome)
-
-    createFS(bonitaHome)
-    
+    System.setProperty("org.ow2.bonita.environment", environmentPath)
     ProcessEngineFactory.registerUserFinder(new TestUserFinder())
 
-    try {
-      proc
-    } finally {
-      System.clearProperty("BONITA_HOME")
-    }
-
+    proc
   }
 
 }

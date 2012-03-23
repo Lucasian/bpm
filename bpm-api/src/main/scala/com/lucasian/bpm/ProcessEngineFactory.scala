@@ -26,5 +26,13 @@ object ProcessEngineFactory {
       userFinder.findCurrentUser()
     }
   }
+  
+  def isUserAdmin(userId: String): Boolean = 
+    userFinder.isUserAdmin(userId)
+  
+  def isUserValid(userId: String): Boolean = 
+    userFinder.isUserValid(userId)
+  
+    
 
 }
