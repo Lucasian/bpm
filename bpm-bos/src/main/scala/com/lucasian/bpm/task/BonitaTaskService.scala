@@ -93,6 +93,14 @@ class BonitaTaskService extends TaskService with BonitaAuth {
   }
 
   @Override
+  def claim(taskId: String): Unit = {
+    bonitaLogin {
+      val taskUUID = new ActivityInstanceUUID(taskId)
+      getRuntimeApi().assignTask(taskUUID, ProcessEngineFactory.findCurrentUser())
+    }
+  }
+
+  @Override
   def assign(taskId: String, userId: String): Unit = {
     bonitaLogin {
       val taskUUID = new ActivityInstanceUUID(taskId)
@@ -120,7 +128,7 @@ class BonitaTaskService extends TaskService with BonitaAuth {
   def start(taskId: String, variables: Map[String, Object]): Unit = {
     bonitaLogin {
       val taskUUID = new ActivityInstanceUUID(taskId)
-      //TODO: ASSIGN VARIABLES
+      addVariablesToTask(taskId, variables)
       getRuntimeApi().startTask(taskUUID, false)
     }
   }
@@ -137,8 +145,15 @@ class BonitaTaskService extends TaskService with BonitaAuth {
   def finish(taskId: String, variables: Map[String, Object]): Unit = {
     bonitaLogin {
       val taskUUID = new ActivityInstanceUUID(taskId)
-      //TODO: ASSIGN VARIABLES
+      addVariablesToTask(taskId, variables)
       getRuntimeApi().finishTask(taskUUID, false)
+    }
+  }
+
+  @Override
+  def addVariables(taskId: String, variables: Map[String, Object]): Unit = {
+    bonitaLogin {
+      addVariablesToTask(taskId, variables)
     }
   }
 
@@ -175,6 +190,15 @@ class BonitaTaskService extends TaskService with BonitaAuth {
     bonitaLogin {
       val taskUUID = new ActivityInstanceUUID(taskId)
       getRuntimeApi().assignTask(taskUUID, userId)
+    }
+  }
+
+  private def addVariablesToTask(taskId: String, variables: Map[String, Object]): Unit = {
+    val scalaVariables = mapAsScalaMap(variables)
+    val taskUUID = new ActivityInstanceUUID(taskId)
+    variables foreach {
+      case (key, value) =>
+        getRuntimeApi().setVariable(taskUUID, key, value)
     }
   }
 

@@ -1,7 +1,6 @@
 package com.lucasian.bpm.management;
 
 import java.util.Set;
-import com.lucasian.bpm.runtime.Process;
 
 public interface ManagementService {
 

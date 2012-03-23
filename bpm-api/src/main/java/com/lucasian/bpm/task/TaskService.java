@@ -21,6 +21,8 @@ public interface TaskService {
 
 	Collection<Task> listActiveTasksByUser(String userId, String processId);
 
+	void claim(String taskId);
+	
 	void assign(String taskId, String userId);
 
 	void unassign(String taskId);
@@ -34,6 +36,8 @@ public interface TaskService {
 	void finish(String taskId);
 
 	void finish(String taskId, Map<String, Object> variables);
+	
+	void addVariables(String taskId, Map<String, Object> variables);
 
 	/*
 	 * Executing SHOULD be the same as starting and then finishing
